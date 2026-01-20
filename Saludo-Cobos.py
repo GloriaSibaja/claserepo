@@ -1,1 +1,1 @@
-print("Hola mundo, soy Cobos xd")
+def saludo(): print("Hola mundo, soy Cobos xd")
