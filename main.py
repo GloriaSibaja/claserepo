@@ -1,6 +1,6 @@
-import Saludo-Cobos
-import Saludo-Dali
-import Saludo-Glo
+import SaludoCobos
+import SaludoDali
+import SaludoGlo
 
 if __name__ == "__main__":
     print("=" * 40)
@@ -8,9 +8,9 @@ if __name__ == "__main__":
     print("=" * 40)
     
     # Invocación de las funciones de cada módulo
-    Saludo-Cobos.saludo()
-    Saludo-Dali.saludo()
-    Saludo-Glo.saludo()
+    SaludoCobos.saludo()
+    SaludoDali.saludo()
+    SaludoGlo.saludo()
     
     print("=" * 40)
     print("--- DESPLIEGE FINALIZADO ---")
