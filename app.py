@@ -15,7 +15,7 @@ app = Flask(__name__)
 stress_predictor = StressLevelPredictor()
 burnout_engine = BurnoutEngine()
 phishing_engine = PhishingRiskEngine()
-llm_explainer = LLMExplainer()
+llm_explainer = LLMExplainer(dataset_file='employee_dataset.csv')
 
 # Train model if not exists
 try:
@@ -111,5 +111,18 @@ def health():
     })
 
 
+@app.route('/api/dataset/info', methods=['GET'])
+def dataset_info():
+    """Get dataset statistics"""
+    stats = llm_explainer.dataset_loader.get_stats()
+    return jsonify({
+        'dataset_loaded': llm_explainer.dataset_loader.dataset is not None,
+        'stats': stats
+    })
+
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    import os
+    # Only enable debug mode in development
+    debug_mode = os.getenv('FLASK_ENV') == 'development'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

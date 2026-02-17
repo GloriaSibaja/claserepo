@@ -9,6 +9,7 @@ A comprehensive AI-powered system for predicting employee stress levels, calcula
 3. **Phishing Vulnerability Index** - Risk assessment for security vulnerabilities
 4. **LLM Executive Summaries** - AI-generated personalized explanations and recommendations
 5. **Professional Dashboard** - Interactive web interface with real-time analytics
+6. **📦 Dataset Integration** - Historical employee data for enhanced LLM context and similar case analysis
 
 ## 🚀 Quick Start
 
@@ -56,16 +57,60 @@ The dashboard will be available at `http://localhost:5000`
 ### 4. LLM Explainer
 - **File**: `llm_explainer.py`
 - **Modes**: OpenAI GPT (if API key provided) or template-based
+- **Dataset Integration**: Uses historical employee data for context
+- **Features**:
+  - Similar case analysis
+  - Outcome-based recommendations
+  - Data-driven insights
 - **Output**: Personalized executive summary with recommendations
 
-### 5. Web Dashboard
+### 5. Dataset Loader
+- **File**: `dataset_loader.py`
+- **Supported Formats**: CSV, JSON
+- **Features**:
+  - Load historical employee datasets
+  - Find similar employee cases
+  - Generate contextual insights for LLM
+  - Dataset statistics and analytics
+- **Sample Dataset**: `data/employee_dataset.csv` (100 synthetic records)
+
+### 6. Web Dashboard
 - **File**: `app.py` (Flask backend)
 - **Templates**: `templates/dashboard.html`
 - **Features**:
   - Interactive data input forms
   - Real-time risk analysis
   - Visualizations with Plotly
-  - Executive summaries
+  - Executive summaries with dataset context
+
+## 📦 Dataset Integration
+
+The system includes a powerful dataset integration feature that enhances LLM explanations with historical context.
+
+### Features
+
+- **Similar Case Analysis**: Find employees with similar profiles from historical data
+- **Outcome Learning**: Learn from past intervention outcomes
+- **Benchmarking**: Compare against organizational averages
+- **Contextual Recommendations**: LLM uses real examples for better advice
+
+### Sample Dataset
+
+A synthetic dataset of 100 employees is included (`data/employee_dataset.csv`):
+- **Stress Distribution**: 35% Low, 51% Medium, 14% High
+- **Average Burnout**: 59.1/100
+- **High Risk Cases**: 31%
+
+### Using Your Own Dataset
+
+```python
+from llm_explainer import LLMExplainer
+
+# Load with your custom dataset
+explainer = LLMExplainer(dataset_file='my_dataset.csv')
+```
+
+See `data/README.md` for dataset format specifications and requirements.
 
 ## 🔧 Configuration
 
