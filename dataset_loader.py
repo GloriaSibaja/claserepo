@@ -87,11 +87,14 @@ class DatasetLoader:
             for field in ['work_hours_per_week', 'sleep_hours_per_day', 'meetings_per_week', 
                          'emails_per_day', 'deadline_pressure', 'task_complexity']:
                 if field in employee_data and field in row:
-                    # Calculate normalized difference
-                    diff = abs(float(employee_data[field]) - float(row[field]))
-                    max_val = max(float(employee_data[field]), float(row[field]), 1)
-                    score += (1 - diff / max_val)
-                    count += 1
+                    # Calculate symmetric similarity using average for normalization
+                    val1 = float(employee_data[field])
+                    val2 = float(row[field])
+                    diff = abs(val1 - val2)
+                    avg_val = (val1 + val2) / 2
+                    if avg_val > 0:
+                        score += (1 - diff / avg_val)
+                        count += 1
             
             avg_similarity = score / count if count > 0 else 0
             similarity_scores.append((idx, avg_similarity))

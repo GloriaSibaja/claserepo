@@ -104,7 +104,7 @@ Be professional, empathetic, and data-driven."""
         
         # Opening based on risk level
         if burnout_score >= 70 or stress_level == 'Critical':
-            opening = f"{employee_name} is currently experiencing **{stress_level.lower()} stress levels** with a burnout score of **{burnout_score}/100** ({burnout_level}).{dataset_stats_text}This situation requires immediate attention."
+            opening = f"{employee_name} is currently experiencing **{stress_level.lower()} stress levels** with a burnout score of **{burnout_score}/100** ({burnout_level}).{dataset_stats_text} This situation requires immediate attention."
         elif burnout_score >= 50 or stress_level == 'High':
             opening = f"{employee_name} shows **{stress_level.lower()} stress levels** and a burnout score of **{burnout_score}/100** ({burnout_level}), indicating elevated risk that should be addressed proactively."
         else:

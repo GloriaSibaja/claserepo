@@ -123,6 +123,7 @@ def dataset_info():
 
 if __name__ == '__main__':
     import os
-    # Only enable debug mode in development
+    # Security: Debug mode is disabled by default
+    # Only enable in development by setting FLASK_ENV=development
     debug_mode = os.getenv('FLASK_ENV') == 'development'
     app.run(debug=debug_mode, host='0.0.0.0', port=5000)
