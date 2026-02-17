@@ -158,6 +158,13 @@ function updateProbabilityCard(phishing) {
 function createBurnoutChart(burnout) {
     const components = burnout.components;
     
+    // Check if Plotly is available
+    if (typeof Plotly === 'undefined') {
+        console.warn('Plotly not available, creating simple chart');
+        createSimpleBarChart('burnoutChart', components);
+        return;
+    }
+    
     const data = [{
         type: 'bar',
         x: Object.keys(components).map(k => k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())),
@@ -193,6 +200,13 @@ function createBurnoutChart(burnout) {
 function createRiskChart(phishing) {
     const riskFactors = phishing.risk_factors;
     
+    // Check if Plotly is available
+    if (typeof Plotly === 'undefined') {
+        console.warn('Plotly not available, creating simple chart');
+        createSimpleBarChart('riskChart', riskFactors);
+        return;
+    }
+    
     const data = [{
         type: 'bar',
         x: Object.keys(riskFactors).map(k => k.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())),
@@ -223,6 +237,51 @@ function createRiskChart(phishing) {
     };
     
     Plotly.newPlot('riskChart', data, layout, {responsive: true, displayModeBar: false});
+}
+
+function createSimpleBarChart(elementId, data) {
+    const container = document.getElementById(elementId);
+    const maxValue = Math.max(...Object.values(data));
+    
+    let html = '<div style="display: flex; align-items: flex-end; height: 300px; gap: 10px; padding: 20px;">';
+    
+    for (const [key, value] of Object.entries(data)) {
+        const label = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        const height = (value / maxValue) * 250;
+        const color = value < 30 ? '#10b981' : value < 60 ? '#f59e0b' : '#ef4444';
+        
+        html += `
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <div style="
+                    width: 100%;
+                    height: ${height}px;
+                    background: ${color};
+                    border-radius: 4px;
+                    position: relative;
+                    transition: all 0.3s;
+                ">
+                    <div style="
+                        position: absolute;
+                        top: -25px;
+                        width: 100%;
+                        text-align: center;
+                        font-weight: bold;
+                        font-size: 14px;
+                    ">${value.toFixed(1)}</div>
+                </div>
+                <div style="
+                    margin-top: 10px;
+                    font-size: 11px;
+                    text-align: center;
+                    transform: rotate(-45deg);
+                    width: 100px;
+                ">${label}</div>
+            </div>
+        `;
+    }
+    
+    html += '</div>';
+    container.innerHTML = html;
 }
 
 function updateExecutiveSummary(explanation) {
